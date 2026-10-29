@@ -28,7 +28,7 @@ public class PerformanceEvents {
         if (!Config.ENABLED.get() || !Config.ENTITY_CULLING.get()) return;
         Minecraft mc = Minecraft.getInstance();
         LivingEntity e = event.getEntity();
-        if (mc.level == null || e == mc.player || e == mc.getCameraEntity() || e.isCurrentlyGlowing()) return;
+        if (mc.level == null || e == mc.player || e == mc.getCameraEntity()) return;
 
         Vector3d cam = mc.gameRenderer.getMainCamera().getPosition();
         double dsq = e.distanceToSqr(cam);
