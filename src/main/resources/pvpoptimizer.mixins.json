@@ -1,0 +1,13 @@
+{
+  "required": false,
+  "package": "me.pvpoptimizer.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "pvpoptimizer.refmap.json",
+  "minVersion": "0.8",
+  "client": [
+    "BlockEntityCullMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

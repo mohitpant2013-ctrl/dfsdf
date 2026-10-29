@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+version = '1.1'
+group = 'me.pvpoptimizer'
+archivesBaseName = 'pvpoptimizer-forge-1.16.5'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+minecraft {
+    mappings channel: 'official', version: '1.16.5'
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRef', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods { pvpoptimizer { source sourceSets.main } }
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, 'pvpoptimizer.refmap.json'
+}
+
+repositories {
+    maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+jar {
+    manifest {
+        attributes(["Specification-Title": "pvpoptimizer", "Specification-Version": "1",
+                    "Implementation-Title": project.name, "Implementation-Version": project.version,
+                    "MixinConfigs": "pvpoptimizer.mixins.json"])
+    }
+}
+jar.finalizedBy('reobfJar')

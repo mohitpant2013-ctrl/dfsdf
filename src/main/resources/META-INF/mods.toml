@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+
+[[mods]]
+modId="pvpoptimizer"
+version="${file.jarVersion}"
+displayName="PVP Optimizer"
+authors="Forge port (original Fabric mod by XLTQ)"
+description='''Client-side PVP optimization: crystal optimizer, anchor optimizer, and cart PVP.'''
+
+[[dependencies.pvpoptimizer]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.pvpoptimizer]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5]"
+    ordering="NONE"
+    side="CLIENT"
